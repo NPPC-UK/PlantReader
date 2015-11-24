@@ -4,7 +4,7 @@ Plant imaging with SLR cameras and RFID tag reader
 -----Full list of scripts used as part of SLR camera image capture
 
 camera_script.py  
-Main Python 3 coordinator script. Runs read_rfid to fetch a plant name. Creates directories for images, sets up cameras and issues instructions to cameras with gphoto2. Sends file paths of captured images to server for processing.
+Main Python 3 coordinator script. Runs read_rfid to fetch a plant name. Creates directories for images, sets up cameras and issues instructions to cameras with gphoto2. Sends file paths of captured images to server for processing. Requires the configparser library: https://docs.python.org/3/library/configparser.html#module-configparser
   
 read_rfid  
 C program that reads from RFID tags. Will return the full experiment and plant ID from the tag as an output (e.g. AB1-01234). Must be compiled from main.c, mifare.c and db_connect.c using the correct libraries.
@@ -21,7 +21,7 @@ Bash script that can be run to halt imaging. Finds the process ID's of relevent 
 ---On server:
 
 process_raw_image.sh  
-Bash script that takes the path of a .NEF file as a command line parameter. Uses EXIF.py to extract the data from the raw file before using GIMP to process it and then deleting it once a PNG has been created.
+Bash script that takes the path of a .NEF file as a command line parameter. Uses EXIF.py to extract the data from the raw file before using GIMP to process it and then deleting it once a PNG has been created. Uses the Python exifread library: https://pypi.python.org/pypi/ExifRead
 
 convert-raw-to-png.scm  
 GIMP macro script to automate the processing of a raw image. Accepts the image path and cropping details as command line parameters. White balances the image, crops it and adjusts the brightness and contrast before saving the file as a PNG.

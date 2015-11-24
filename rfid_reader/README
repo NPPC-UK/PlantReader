@@ -1,5 +1,8 @@
 This folder contains the C files that need to be compiled into the program read_rfid, which extracts experiment data from plant RFID tags on the LemnaTec system. It requires the libnfc and libpq packages in order to compile.
 
+libpq - http://www.postgresql.org/docs/9.1/static/libpq.html
+libnfc - http://nfc-tools.org/index.php?title=Libnfc
+
 To compile, run:
 
 gcc main.c mifare.c db_connect.c -o read_rfid -lnfc -lpq
