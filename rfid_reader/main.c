@@ -21,7 +21,7 @@
  * 
  * Script to retrieve name and car ID of a plant from its RFID tag.
  * Based on examples from the 'libnfc' library http://nfc-tools.org/index.php?title=Libnfc.
- * Errors go to "rfid_out.txt". 
+ * Errors go to "output/rfid_out.txt". 
 */
 
 #include <stdio.h>
@@ -41,7 +41,7 @@ char name_buffer[17];
 char carid_buffer[17];
 char plant_name[17];                       
 char plant_carid[5];
-char file_name[41] = "rfid_out.txt"; // Output going to file as Python script relies on stdout
+char file_name[41] = "output/rfid_out.txt"; // Output going to file as Python script relies on stdout
 FILE *output_file;
 
 /* Key is just the standard key */
