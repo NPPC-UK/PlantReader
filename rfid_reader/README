@@ -1,0 +1,7 @@
+This folder contains the C source files that need to be compiled into the program read_rfid, which extracts experiment data from plant RFID tags on the LemnaTec system. It requires the libnfc and postgresql packages in order to compile.
+
+To compile, run:
+
+gcc main.c mifare.c db_connect.c -o read_rfid -lnfc -lpq
+
+The read_rfid program needs to be in the same directory as the script camera_script.py.
