@@ -1,3 +1,27 @@
+/*
+ * Copyright (C) 2015		Aberystwyth University	
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/* 
+ * @file mifare.h
+ * @author Katie Awty-Carroll (kah36@aber.ac.uk)
+ * 
+ * Header file included from libnfc library.
+*/
+
 /*-
  * Free/Libre Near Field Communication (NFC) library
  *
@@ -81,7 +105,8 @@ typedef union {
 // Reset struct alignment to default
 #  pragma pack()
 
-bool    nfc_initiator_mifare_cmd(nfc_device *pnd, const mifare_cmd mc, const uint8_t ui8Block, mifare_param *pmp);
+bool nfc_initiator_mifare_cmd(nfc_device *pnd, const mifare_cmd mc, const uint8_t ui8Block, mifare_param *pmp, FILE *output);
+int get_plant_details();
 
 // Compiler directive, set struct alignment to 1 uint8_t for compatibility
 #  pragma pack(1)
@@ -143,3 +168,4 @@ typedef struct {
 #  pragma pack()
 
 #endif // _LIBNFC_MIFARE_H_
+

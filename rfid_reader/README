@@ -1,4 +1,4 @@
-This folder contains the C source files that need to be compiled into the program read_rfid, which extracts experiment data from plant RFID tags on the LemnaTec system. It requires the libnfc and postgresql packages in order to compile.
+This folder contains the C files that need to be compiled into the program read_rfid, which extracts experiment data from plant RFID tags on the LemnaTec system. It requires the libnfc and postgresql packages in order to compile.
 
 To compile, run:
 
