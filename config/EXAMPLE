@@ -1,0 +1,56 @@
+ # Copyright (C) 2015		Aberystwyth University	
+ 
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version.
+
+ # This program is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+
+ # You should have received a copy of the GNU General Public License
+ # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ # EXAMPLE
+ # Author: Katie Awty-Carroll (kah36@aber.ac.uk)
+ # 
+ # Example config file for camera_script.py. Designed to be read by the 
+ # Python ConfigParser module: 
+ # (https://docs.python.org/3/library/configparser.html#module-configparser).
+ # Config files are designed to be named after the experiment being
+ # run, e.g. CR6. 
+
+#These settings are used to make up image file names
+[image_naming]
+config = 00
+modality = SLR-VIS
+n1 = 0
+n2 = 0
+n3 = 0
+
+#The list of angles that the plant will turn to. An image will be captured from each camera for each angle. 
+[angles]
+first = 000
+
+#main_drive is the main drive for images to be saved to. The script will attempt to save images to alt_drive if main_drive is inaccessible. The alt_drive option can be removed if no alternative drive exists. If neither path can be found, the script will terminate and no images will be captured.
+[drives]
+main_drive = /main/drive
+alt_drive = /backup/drive
+
+#The list of cameras that images will be captured from for this configuration. Use 'gphoto2 --auto-detect' to find all attached cameras and which ports they are on, and 'gphoto2 --port [usb:xxx,xxx] --get-config serialnumber' to find the serial number for a certain camera. A connected camera that is not on this list will not be used. The name of the camera (e.g. 'sv' for 'side view') is used in image names to identify the camera.
+[camera_list]
+00000000000000000000000001111111 = lv
+00000000000000000000000002222222 = cv
+00000000000000000000000003333333 = rv
+
+#delay is the delay in seconds between initializing camera(s) and capturing images. delay_angles is the delay in seconds between capturing images at each angle. Must be integers or floats.
+[timing]
+delay = 20
+angle_delay = 2
+
+#Settings that don't seem to fit anywhere else
+[misc]
+#Empty carts are not always captured as cameras may have difficulty focusing on them. To attempt to capture empty carts, set to "yes".
+capture_empty_carts = yes
