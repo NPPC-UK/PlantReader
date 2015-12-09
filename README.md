@@ -1,6 +1,8 @@
 # PlantReader
 Plant imaging with SLR cameras and RFID tag reader
 
+gphoto2 is needed to control the attached cameras. It can be found here: http://gphoto.sourceforge.net/  
+
 -----Full list of scripts used as part of SLR camera image capture
 
 camera_script.py  
