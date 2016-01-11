@@ -99,7 +99,7 @@ def take_pictures(directory_path, parser):
 				cam_pos = parser.get("camera_list", camera)
 				file_name = directory_path + "/" + parser.get("image_naming", "config") + "_" + parser.get("image_naming", "modality") + "_" + cam_pos + "_" + angle + "-" + parser.get("image_naming", "n1") + "-" + parser.get("image_naming", "n2") + "-" + parser.get("image_naming", "n3")
 				whole_path = file_name + ".NEF"
-				image_paths.append(whole_path)
+				image_paths.append(whole_path + " " + parser.get("crop_x", cam_pos) + " " + parser.get("crop_y", cam_pos) + " " + parser.get("offset_x", cam_pos) + " " + parser.get("offset_y", cam_pos) + " " + parser.get("brightness", cam_pos) + " " + parser.get("contrast", cam_pos))
 				commands.append(["gphoto2", "--port", cameras[camera], "--capture-image-and-download", "--force-overwrite","--filename", whole_path])
 		
 		try:		

@@ -45,6 +45,36 @@ alt_drive = /backup/drive
 00000000000000000000000002222222 = cv
 00000000000000000000000003333333 = rv
 
+#crop_x is the new image width. To not crop, this should be the original image width.
+[crop_x]
+cv = 1900
+lv = 4016
+
+#crop y is the new image height. To not crop, this should be the original image height.
+[crop_y]
+cv = 3500
+lv = 6016
+
+#offset x describes where the image width should be cropped. This should be 0 if width is not being cropped.
+[offset_x]
+cv = 750
+lv = 0
+
+#offset_y describes where the image height should be cropped. This should be 0 if height is not being cropped. 
+[offset_y]
+cv = 1500
+lv = 0
+
+#brightness is the adjustment in brightness of the image, from -127 to +127. This should be 0 if the brightness is not being adjusted.
+[brightness]
+cv = 25
+lv = 20
+
+#contrast is the adjustment in contrast of the image, from -127 to +127. This should be 0 if the contrast is not being adjusted.
+[contrast]
+cv = 30
+lv = 25
+
 #delay is the delay in seconds between initializing camera(s) and capturing images. delay_angles is the delay in seconds between capturing images at each angle. Must be integers or floats.
 [timing]
 delay = 20

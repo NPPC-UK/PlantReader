@@ -21,12 +21,12 @@
  ; of the image to reduce its file size. Saves the file as a PNG.
  ; The input file must be a RAW file.
 
-(define (convert-raw-to-png filename new-filename crop_x crop_y offset_x offset_y)
+(define (convert-raw-to-png filename new-filename crop_x crop_y offset_x offset_y brightness contrast)
 	 	(catch (gimp-quit 1)
     	(let* ( (image (car (file-ufraw-load RUN-NONINTERACTIVE filename filename)))
     	(drawable (car (gimp-image-get-active-layer image))))
-		(gimp-levels-stretch drawable)	; White balance
-		(gimp-image-crop image crop_x crop_y offset_x offset_y) ; Crop
-		(gimp-brightness-contrast drawable 25 30) ; Increase brightness and contrast
+		(gimp-levels-stretch drawable)								; White balance
+		(gimp-image-crop image crop_x crop_y offset_x offset_y)     ; Crop/resize
+		(gimp-brightness-contrast drawable brightness contrast) 	; Increase brightness and contrast
     	(file-png-save-defaults RUN-NONINTERACTIVE image drawable new-filename filename)
 		(gimp-quit 0))))

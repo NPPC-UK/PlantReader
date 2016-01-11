@@ -22,24 +22,16 @@
  # white balance/crop them with Gimp. Also extracts EXIF data using the 
  # Python exifread library.
 
-#Dimensions and offsets for image cropping
-lv_x=4016
-lv_y=6016
-lv_offset_x=0
-lv_offset_y=0
-
-cv_x=1900
-cv_y=3500
-cv_offset_x=750
-cv_offset_y=1500
-
-rv_x=3400
-rv_y=6016
-rv_offset_x=0
-rv_offset_y=0
-
+#Fetch command line arguments
 img_path=$1
+crop_x=$2
+crop_y=$3
+offset_x=$4
+offset_y=$5
+brightness=$6
+contrast=$7
 
+#Check if the image exists
 if [[ $img_path ]]; then
 	img_ext=${img_path: -4}
 else
@@ -47,21 +39,22 @@ else
 	exit 1
 fi
 
+#Check that the image is the correct type (NEF's are Nikon raw image files)
 if [[ $img_ext != ".NEF" && $img_ext != ".nef" ]]; then
 	echo "File is not a raw file"
 	exit 1
 else 
+	#Set up new file names
 	img_png=${img_path%.*}".png"
 	img_exif=${img_path%.*}".exif"
+	
+	#Extract the EXIF data and store it to a text file (PNG's don't retain EXIF data)
 	python ./exif-py/EXIF.py -q $img_path > $img_exif
 	
-	if [[ $img_path == *"_lv_"* ]]; then 
-		gimp -i -b "(convert-raw-to-png \"$img_path\" \"$img_png\" $lv_x $lv_y $lv_offset_x $lv_offset_y)"
-	elif [[ $img_path == *"_cv_"* ]]; then
-  		gimp -i -b "(convert-raw-to-png \"$img_path\" \"$img_png\" $cv_x $cv_y $cv_offset_x $cv_offset_y)"
-	elif [[ $img_path == *"_rv_"* ]]; then
-		gimp -i -b "(convert-raw-to-png \"$img_path\" \"$img_png\" $rv_x $rv_y $rv_offset_x $rv_offset_y)"
-	fi
+	#Use the GIMP to perform adjustments to the image, and save the new PNG
+	gimp -i -b "(convert-raw-to-png \"$img_path\" \"$img_png\" $crop_x $crop_y $offset_x $offset_y $brightness $contrast )"
+
+	#Remove the old NEF image to save space
 	rm $img_path
 fi
 
