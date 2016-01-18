@@ -80,12 +80,11 @@ def process_images(paths):
 	
 	print("Processing {} images".format(len(paths)))
 	for image in paths:
-		if os.path.exists(image):
-			try:
-				process_string = "ssh user@server \'setsid process_raw_image.sh " + image + " >> /dev/null 2>&1\'"
-				subprocess.Popen([process_string], shell=True)
-			except (OSError, ValueError) as e:
-				print("***WARNING***: Failed to run processing on image {}: {}".format(image, e))	
+		try:
+			process_string = "ssh user@server \'setsid process_raw_image.sh " + image + " >> /dev/null 2>&1\'"
+			subprocess.Popen([process_string], shell=True)
+		except (OSError, ValueError) as e:
+			print("***WARNING***: Failed to run processing on image {}: {}".format(image, e))	
 
 #Take a picture with each camera for each angle in the configuration file.
 def take_pictures(directory_path, parser):
@@ -99,18 +98,21 @@ def take_pictures(directory_path, parser):
 				cam_pos = parser.get("camera_list", camera)
 				file_name = directory_path + "/" + parser.get("image_naming", "config") + "_" + parser.get("image_naming", "modality") + "_" + cam_pos + "_" + angle + "-" + parser.get("image_naming", "n1") + "-" + parser.get("image_naming", "n2") + "-" + parser.get("image_naming", "n3")
 				whole_path = file_name + ".NEF"
-				image_paths.append(whole_path + " " + parser.get("crop_x", cam_pos) + " " + parser.get("crop_y", cam_pos) + " " + parser.get("offset_x", cam_pos) + " " + parser.get("offset_y", cam_pos) + " " + parser.get("brightness", cam_pos) + " " + parser.get("contrast", cam_pos))
+				image_paths.append(whole_path + " " + parser.get("crop_x", cam_pos) + " " + parser.get("crop_y", cam_pos) + " " + parser.get("offset_x", cam_pos) + " " + parser.get("offset_y", cam_pos) + " " + parser.get("brightness", cam_pos) + " " + parser.get("contrast", cam_pos) + " " + parser.get("white_balance", cam_pos))
 				commands.append(["gphoto2", "--port", cameras[camera], "--capture-image-and-download", "--force-overwrite","--filename", whole_path])
 		
+		#Create an array of subprocesses made up of the commands being run
 		try:		
-			processes = [subprocess.Popen(command) for command in commands]
+			processes = [subprocess.Popen(command) for command in commands] 
 		except (OSError, ValueError) as e:
 			print("***WARNING***: Failed to run command {}: {}".format(command, e))			
-			
+		
+		#Wait for each process in the processes array to terminate	
 		for process in processes:
 			process.wait()
 		
-		process_images(image_paths)
+		#Process the images 
+		process_images(image_cmds)
 
 		#Reset arrays for the next set of images to be collected
 		commands[:] = [] 

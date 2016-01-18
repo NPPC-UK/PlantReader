@@ -30,6 +30,7 @@ offset_x=$4
 offset_y=$5
 brightness=$6
 contrast=$7
+if_balance=$8
 
 #Check if the image exists
 if [[ $img_path ]]; then
@@ -52,7 +53,7 @@ else
 	python ./exif-py/EXIF.py -q $img_path > $img_exif
 	
 	#Use the GIMP to perform adjustments to the image, and save the new PNG
-	gimp -i -b "(convert-raw-to-png \"$img_path\" \"$img_png\" $crop_x $crop_y $offset_x $offset_y $brightness $contrast )"
+	gimp -i -b "(convert-raw-to-png \"$img_path\" \"$img_png\" $crop_x $crop_y $offset_x $offset_y $brightness $contrast $if_balance )"
 
 	#Remove the old NEF image to save space
 	rm $img_path

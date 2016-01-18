@@ -75,6 +75,11 @@ lv = 20
 cv = 30
 lv = 25
 
+#Whether or not the images should be auto white balanced with the GIMP (1 is yes, anything else is no).
+[white_balance]
+cv = 0
+lv = 1
+
 #delay is the delay in seconds between initializing camera(s) and capturing images. delay_angles is the delay in seconds between capturing images at each angle. Must be integers or floats.
 [timing]
 delay = 20
