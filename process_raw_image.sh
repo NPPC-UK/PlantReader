@@ -35,6 +35,10 @@ if_balance=$8
 #Check if the image exists
 if [[ $img_path ]]; then
 	img_ext=${img_path: -4}
+	if [ ! -f $img_path ]; then
+		echo "Image does not exist"
+		exit 1
+	fi
 else
 	echo "No image specified"
 	exit 1
