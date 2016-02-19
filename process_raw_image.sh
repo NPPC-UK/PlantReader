@@ -20,7 +20,7 @@
  # 
  # Script to convert raw NEF files from Nikon D3300 into PNG's, then auto 
  # white balance/crop them with Gimp. Also extracts EXIF data using the 
- # Python exifread library.
+ # Python ExifTool library.
 
 #Fetch command line arguments
 img_path=$1
@@ -44,20 +44,22 @@ else
 	exit 1
 fi
 
-#Check that the image is the correct type (NEF's are Nikon raw image files)
+#Check that the image is the correct type (NEF's are Nikon raw image files, alter this to suit the format being used)
 if [[ $img_ext != ".NEF" && $img_ext != ".nef" ]]; then
 	echo "File is not a raw file"
 	exit 1
 else 
-	#Set up new file names
+	#Set up new file name
 	img_png=${img_path%.*}".png"
-	img_exif=${img_path%.*}".exif"
 	
-	#Extract the EXIF data and store it to a text file (PNG's don't retain EXIF data)
-	python ./exif-py/EXIF.py -q $img_path > $img_exif
+	#Extract the EXIF data
+	exif_data=$(./Image-ExifTool-10.09/exiftool -S $img_path)
 	
 	#Use the GIMP to perform adjustments to the image, and save the new PNG
 	gimp -i -b "(convert-raw-to-png \"$img_path\" \"$img_png\" $crop_x $crop_y $offset_x $offset_y $brightness $contrast $if_balance )"
+
+	#Store the EXIF data in the comments section of the new PNG
+	./Image-ExifTool-10.09/exiftool -overwrite_original -Comment="${exif_data}" $img_png
 
 	#Remove the old NEF image to save space
 	rm $img_path
