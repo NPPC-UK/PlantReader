@@ -13,9 +13,13 @@ EXIF data from RAW files and store it as a comment in the PNG files.
 List of libraries:
 
 libnfc			- http://nfc-tools.org/index.php?title=Libnfc
+
 gphoto2			- http://gphoto.sourceforge.net/
+
 ExifTool		- http://www.sno.phy.queensu.ca/~phil/exiftool/
+
 ConfigParser 	- https://docs.python.org/3/library/configparser.html#module-configparser
+
 libpq			- http://www.postgresql.org/docs/9.1/static/libpq.html
 
 -----Full list of scripts used as part of SLR camera image capture
